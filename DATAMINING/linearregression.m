@@ -1,0 +1,40 @@
+clear ; close all; clc
+
+fprintf('Loading data ...\n');
+data = load('dmData1.txt');
+n=size(data,2);
+X = data(:, 1:n-1);
+y = data(:, n);
+m = length(y);
+
+% Scale features and set them to zero mean
+fprintf('Normalizing Features ...\n');
+
+[X mu sigma] = featureScale(X);
+
+% Add intercept term to X
+X = [ones(m, 1) X];
+
+
+%% ================ Gradient Descent ================
+
+fprintf('Running gradient descent ...\n');
+
+% Choose some alpha value
+alpha = 0.1;
+num_iters = 400;
+
+% Init Theta and Run Gradient Descent 
+theta = zeros(n, 1);
+[theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters);
+
+% Plot the convergence graph
+figure;
+plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
+xlabel('Number of iterations');
+ylabel('Cost J');
+
+% Display gradient descent's result
+fprintf('Theta computed from gradient descent: \n');
+fprintf(' %f \n', theta);
+fprintf('\n');

@@ -1,0 +1,14 @@
+function [ypred]=predict(x,mu0,mu1,sigma,n)
+
+K=(((2*pi).^(n/2))*det(sigma).^0.5).^-1;
+py0=1-p;
+py1=p;
+c0=(x-mu0)*inv(sigma)*(x-mu0)';
+c1=(x-mu1)*inv(sigma)*(x-mu1)';
+p0=K*exp(-.5*c0)*py0;
+p1=K*exp(-.5*c1)*py1 ;
+if(max(p0,p1)==p0)
+    ypred=0
+else
+    ypred=1
+end

@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%LOADING DATA..........................
+clear ; close all; clc
+
+fprintf('Loading data ...\n');
+data = load('haberman.csv');
+
+%%%%%%%%%%%%%%%%PLOTTING AND PREPROCESSING...............
+[X,y]=split(data);
+ind=find(y==2);
+y(ind)=0;
+plotData(X,y);
+[X,mu,sigma]= featureScale(X);
+% Add intercept term to X
+X = [ones(m, 1) X];
+
+
+%% ================ Gradient Descent ================
+
+fprintf('Running gradient descent ...\n');
+
+% Choose some alpha value
+alpha = 0.1;
+num_iters = 200;
+
+% Init Theta and Run Gradient Descent 
+theta = zeros(n, 1);
+[theta, J_history,J] = gradientDescent(X, y, theta, alpha, num_iters);
+
+% Plot the convergence graph
+figure;
+plot(1:numel(J_history), J_history, '-b');
+
+
+% Display gradient descent's result
+fprintf('Theta computed from gradient descent: \n');
+fprintf(' %f \n', theta);
+fprintf('\n');
+
+plotDecisionBoundary(theta, X, y);

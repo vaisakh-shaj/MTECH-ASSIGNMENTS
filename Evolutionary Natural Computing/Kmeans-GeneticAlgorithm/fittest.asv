@@ -1,0 +1,10 @@
+function [fittest_indi,new_popu,cpopu]=fittest(X,popu)
+p=size(popu,3);
+for j=1:p
+    idx=findClosestCentroids(X,centroids);
+    new_popu(:,:,j)=ComputeCentroids(X,idx,k);
+    cpopu(j)=estimateCost(X,new_popu(:,:,j));
+end
+[val,ind]=min(cpopu);
+fittest_indi=popu(:,:,ind);
+end

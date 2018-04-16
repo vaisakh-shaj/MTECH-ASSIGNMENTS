@@ -1,0 +1,15 @@
+function [mut_popu]=mutation(popu)
+p=size(popu,3);
+k=size(popu,1);
+b=[];
+for i=1:p
+    del=rand();
+    r=randi([1,k]);
+    a=popu(r,:,i);
+    b(1,:)=a+2*del*a;
+    b(2,:)=a-2*del*a;
+    r1=randi([1,2]);
+    popu(r,:,i)=b(r1,:);
+end
+mut_popu=popu;
+end

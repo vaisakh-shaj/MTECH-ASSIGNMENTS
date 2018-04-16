@@ -1,0 +1,25 @@
+function [ypred,yy]= predictNba(x,n,levels,cp,p,q)
+py1=1;py0=1;
+for i=1:n
+    for j=1:levels
+        if(x(1,i)==j)
+            py1=py1.*cp(1,i,j);
+            break;
+        end
+    end
+end
+py1=py1*p;
+for i=1:n
+    for j=1:levels
+        if(x(1,i)==j)
+            py0=py0.*cp(0,i,j);
+            break;
+        end
+    end
+end
+py0=py0*q;
+if(max(py0,py1)==py0)
+    ypred=0;yy=py0;
+else
+    ypred=1;yy=py1;
+end

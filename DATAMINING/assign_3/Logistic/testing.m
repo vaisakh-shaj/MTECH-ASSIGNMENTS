@@ -1,0 +1,29 @@
+function [sensitivity,precision]=testing(testV,ypred,theta)
+[Xtest,Ytest]=split(testV);
+mm=length(Ytest);
+tp=0;tn=0;fp=0;fn=0;
+for i=1:mm
+    if(ypred(i)==1&Ytest(i)==1)
+        tp=tp+1;
+    end
+    if(ypred(i)==1&Ytest(i)==0)
+        fp=fp+1;
+    end
+    if(ypred(i)==0&Ytest(i)==1)
+        fn=fn+1;
+    end
+    if(ypred(i)==0&Ytest(i)==0)
+        tn=tn+1;
+    end
+end
+sensitivity=tp/(tp+fn);
+precision=tp/(tp+fp);
+F=(2*sensitivity*precision)/(precision+sensitivity)
+figure;
+[xx,yy]=perfcurve(Ytest,ypred,1);
+plot(xx,yy)
+figure;
+x=min(Xtest*theta):.1:max(Xtest*theta);
+h=sigmoid(x);
+plot(x,h)
+end

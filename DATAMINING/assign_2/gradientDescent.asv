@@ -1,0 +1,43 @@
+function [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters)
+
+m = length(y); % number of training examples
+J_history = zeros(num_iters, 1);
+s=size(X,2);
+
+ThetaFold=[];
+prompt='K value : ';
+	k=input(prompt);
+
+set=cvpartition(m,'kfold',k);
+
+for fold=1:k
+Xtrain= X(training(set,fold),:);
+Ytrain=y(training(set,fold));
+for iter = 1:num_iters
+del=[];
+  
+for j=1:s
+
+	del=[del;(alpha/m)*sum((Xtrain *theta-Ytrain).*Xtrain(:,j))];
+	    
+
+end
+
+theta=theta-del;
+
+  J_his(iter,fold) = computeCostMulti(Xtrain, Ytrain, theta);
+
+end
+ThetaFold=[ThetaFold,theta];
+Xtest=X(test(set,fold),:);
+Ytest=y(test(set,fold),:);
+J(fold)=computeCost(Xtest,Ytest,theta);
+end
+figure;
+plot(1:k, J, '-b', 'LineWidth', 2);
+xlabel('Kth Fold');
+ylabel('Cost J');
+[val,index]=min(J);
+theta=ThetaFold(:,index);
+J_history=J_his(:,index);
+end

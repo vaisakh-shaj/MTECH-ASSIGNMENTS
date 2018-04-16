@@ -1,0 +1,434 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Assignment\ \#2}
+\newcommand{\hmwkDueDate}{}
+\newcommand{\hmwkClass}{Pattern Recognition And Machine Learning}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{}
+\newcommand{\hmwkAuthorName}{Vaisakh Shaj}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    %\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    \section{Show that the set X of all integers with metric defined by \textit{$d(m,n) = \mid  m-n \mid$}  is a complete metric space.}
+
+
+    \textbf{Solution}\\
+
+    Set of all integers X form a discrete space.Now the metric defined in it \textit{$d(m,n) = \mid m-n \mid$ }. Lets prove (X,d) form a valid metric space
+
+    
+1. d(x,y) $\geq$ 0 and finite 
+\\ 2. d(x,y) = d(y,x)and d(x,y) = 0 iff x=y ,ie if x=y, d(x,y) = d(x,x) = $ \vert x-x \vert$ = 0
+\\3.To prove triangle inequality, lets take x,y,z $\in$ X.
+ 
+$d(x,z) =  \vert x-z \vert $ \\ $ = \vert x-y + y-z \vert$ 
+$ \leq \vert x - y \vert + \vert y - z \vert$
+\\$ = d(x,y) + d(y,z) $
+\\$ \Rightarrow d(x,z) \leq d(x,y) + d(y,z) $  
+
+So X is a metric space.\\
+
+\textbf{ Proving Set of all Integers is Complete in the given metric space}\\
+
+
+Unravelling the definition for a Cauchy sequence, we get that :
+
+$ \forall \epsilon > 0 : \exists N : \forall m,n >N : d(a_n,a_m) < \epsilon $\\
+
+and for $\epsilon= 1/2$ and with the given metric definition $d(m,n) = \mid m-n \mid$, we note that this must mean $d(a_n,a_m)=0$ (since otherwise it exceeds 1) i.e $a_n = a_m $ for some N and all $ m,n \geq N $.That is, $a_n$ is eventually constant.\\
+
+
+Now there is an obvious guess for the limit of eventually constant sequences, and we conclude that set of integers with the Euclidean metric is complete.
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    
+\section{Show that \textit{$d(x,y)=\sqrt{|x-y|}$} defines a metric on the set of all real numbers.}
+
+\textbf{Solution}
+
+Lets prove (X,d) form a valid metric space
+
+    
+1. d(x,y) $\geq$ 0 and finite 
+\\ 2. d(x,y) = d(y,x)and d(x,y) = 0 iff x=y ,ie if x=y, d(x,y) = d(x,x) = $ \sqrt{\vert x-x \vert}$ = 0
+\\3.To prove triangle inequality, lets take x,y,z $\in$ X.
+ 
+$d(x,z) =  \sqrt{\vert x-z \vert} $ \\ $ = \sqrt{\vert x-y + y-z \vert}$ 
+\\$ \leq \sqrt{ \vert x - y \vert + \vert y - z \vert}$
+\\$ \leq \sqrt{\vert x - y \vert} + \sqrt{\vert y - z \vert}$
+\\$ = d(x,y) + d(y,z) $
+\\$ \Rightarrow d(x,z) \leq d(x,y) + d(y,z) $  
+
+So X is a metric space.\\
+
+ 
+\end{homeworkProblem}
+\pagebreak
+\begin{homeworkProblem}
+
+\section{Show that the closure \textit{$\bar{Y}$} of a subspace \textit{Y} of a normed space \textit{X} is again a vector space. }
+
+\textbf{Solution}
+
+It is sufficient to prove that $\alpha x + \beta y \in \bar{Y}$ where $\alpha $ and $\beta $ are in the underlying field $\mathbb{F}$ and x,y $\in \bar{Y.}$\\
+Since x,y $\in \bar{Y} \exists     x_j,y_j \in X$ such that $x_j \rightarrow x$ and $y_j \rightarrow$ y. Since multiplication and addition are continuous $\alpha x_j + \beta y_j \rightarrow \alpha x + \beta y .$\\
+\\
+So, $\alpha x + \beta y \in \bar{Y}$.\\
+Therefore $\bar{Y}$ is a subspace.
+    
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+\section{Show that in an inner product space, $ x \perp y $ iff $ \parallel x + \alpha y \parallel \geq \parallel x \parallel \forall \alpha \in \mathbb{R}$} 
+ 
+\textbf{Solution}\\
+
+$\Vert x + \alpha y \Vert ^2 = \langle x+ \alpha y,x+ \alpha y\rangle $\\
+$ = \langle x,x \rangle + \alpha \langle x,y \rangle + \alpha \langle y,x \rangle + \alpha^2 \langle y,y \rangle $\\
+i.e , \\
+$\Vert x + \alpha y \Vert ^2 = \langle x,x \rangle + 2\alpha \langle x,y \rangle + \alpha^2 \langle y,y \rangle $\\
+
+$ = \|x\| ^2 + 2 \alpha \langle x,y \rangle +\alpha ^2 $---(1)\\
+
+if x $\perp , \langle x,y \rangle = 0 $\\
+ \\
+$(1) \Rightarrow \Vert x + \alpha y \Vert ^2 = \Vert x \Vert^2 + \alpha^2 \vert y \Vert^2 $\\
+$\Rightarrow \Vert x + \alpha y \Vert ^2 \geq \Vert x \Vert^2 $\\
+$\Rightarrow \Vert x + \alpha y \Vert \geq \Vert x \Vert$\\
+
+\textbf{hence proved the if part}\\
+
+if $\Vert x + \alpha y \Vert ^2 \geq   \parallel x ^2 \parallel \forall \alpha \varepsilon \Re  $\\
+
+$ \Rightarrow   2 \alpha \langle x,y \rangle +\alpha ^2 \geq 0 $ ,which is true \textbf{if} $ \langle  x,y \rangle = 0 $\\
+
+\textbf{hence proved the only if part}
+   
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  
+\section{Find  $\langle u,v \rangle$, where $v=(1+2i,3-i)^T$ , $u=(-2+i,4)^T$.}
+
+\textbf{Solution}
+$ langle u,v\rangle = \langle(-2+i,4),(1+2i,3-i)\rangle $ \\
+for complex numbers $\langle (x1,x2)(y1,y2) \rangle = x1*\overline{y1}+x2*\overline{y2}$\\
+$ = (-2+i)(1-2i) + 4(3+i)$\\
+$ = -2+4i+i+2+12+4i$\\
+$ = 9i+12$\ 
+  
+\end{homeworkProblem}
+\pagebreak
+
+\begin{homeworkProblem}
+
+\section{Which of the following subsets of $\mathbb{R}^3$ constitute a subspace of $\mathbb{R}^3$ ? [x=$(\eta_1,\eta_2,\eta_3)^T$]}
+\section{(a) All x with $\eta_1 = \eta_2$ and $\eta_3 = 0$.}
+\section{(b) All x with $\eta_1 = \eta_2+1$}
+
+
+
+\textbf{Solution}
+
+a)\\
+Let Z=\{All x with $\eta_1 = \eta_2$ and $\eta_3 = 0$\}.\\
+Consider X=$(x,x,0)$,Y=$(y,y,0)$ $\in Z$\\
+$X+Y = (x+y,x+y,0) \in Z $\\
+$ \alpha X = (\alpha x,\alpha x,0) \in Z $\\
+Thus Z is closed under addition and scalar multiplication,hence it is a subspace of $\mathbb{R}^3$.
+
+b)\\
+Let Z=\{All x with $\eta_1 = \eta_2+1$\}.\\
+Consider X=$(x+1,x,p)$,Y=$(y+1,y,q)$ $\in Z$ where p,q$\in \mathbb{R}$.\\
+$X+Y = (x+y+2,x+y,p+q)) \notin Z  $\\
+because $\eta_1 \neq \eta_2+1$ is violated here. Hence Z is not closed under addition. So it is not a subspace of $\mathbb{R}^3$.
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+\section{Show that $\|x\|$ is the distance from x to 0.}
+
+\textbf{Solution}
+
+Considering $\|x||_2$ ,
+d(x,y)= $\|x-y\|$ is clearly a metric space.\\
+
+Let y=0.\\
+Therefore d(x,0)= $\|x-y\|$ = distance between x and origin = $\|x\|$.     
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+ \section{If an inner product space $\langle x,u \rangle$ = $\langle x,v \rangle$ for all x, show that u=v.}
+ 
+ \textbf{Solution}  
+ 
+ Given $\langle x,u \rangle$ = $\langle x,v \rangle$\\
+i.e, $\langle x,u \rangle$ - $\langle x,v \rangle = 0$\\
+$\Rightarrow \langle x,u-v \rangle = 0$-----(1)\\
+
+we have to prove its true $\forall x$
+
+take x= u-v
+
+(1)$ \Rightarrow \langle u-v,u-v \rangle = 0$\\
+$\Rightarrow \parallel u-v \parallel ^2 = 0 $\\
+$ \Rightarrow \parallel u-v \parallel = 0 $\\
+
+$ \Rightarrow u=v $
+
+Hence Proved
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+\section{Prove that $\Vert T_1T_2 \Vert \leq \Vert T_1 \Vert \Vert T_2 \Vert $ ;$ \Vert T^n \Vert \leq \Vert T \Vert^n $}
+
+\textbf{Solutions}\\
+
+\textbf{To Prove $\Vert T_1T_2 \Vert \leq \Vert T_1 \Vert \Vert T_2 \Vert $}
+
+
+A vector norm and its induced matrix norm satisfy   the inequality\\
+$\Vert Tx \Vert \leq \Vert T \Vert \Vert x \Vert$ \\
+Replace x by $T_2$x,\\
+$\Vert T_1T_2x \Vert \leq \Vert T_1 \Vert \Vert T_2 \Vert \Vert x \Vert$\\
+For nonzero x we can divide both sides by the positive number $\Vert x \Vert$ and can conclude that\\
+$ \Vert T_1T_2\Vert  = max_x \frac{\Vert T_1T_2x\Vert}{\Vert x\Vert} \leq \Vert T_1 \Vert \Vert T_2 \Vert $
+\\
+Hence Proved
+\\
+
+\textbf{To prove $ \Vert T^n \Vert \leq \Vert T \Vert^n $ }\\
+
+if $T_1 = T_2 $\\
+$ \Vert TT \Vert = \Vert T^2 \Vert \leq \Vert T \Vert^2 $\\
+similiarly,
+$ \Vert T.......T \Vert  \leq \Vert T \Vert \Vert T........T \Vert $\\
+$ \Vert T \Vert^n  \leq \Vert T \Vert \Vert T \Vert \Vert T........T \Vert $\\
+Therefore $ \Vert T^n \Vert \leq \Vert T \Vert^n $
+Hence, PROVED.
+  
+\end{homeworkProblem} 
+
+\pagebreak 
+ 
+\begin{homeworkProblem}
+
+\section{For a real inner product space prove that $\langle x,y \rangle$ = $\frac{1}{4}(||x+y||^2-||x-y||^2 )$} 
+
+\textbf{Solution}
+
+$\Vert x+y \Vert^2$\\
+ = $\langle x+y, x+y \rangle$\\
+$ = \langle x,x \rangle + \langle x,y \rangle + \langle y,x \rangle+ \langle y,y \rangle $\\
+$ = \langle x,x \rangle + 2\langle x,y \rangle + \langle y,y \rangle $\\
+$ = \Vert x \Vert^2 + 2\langle x,y \rangle + \Vert y \Vert^2 $ \textbf{-----(1)} \\
+similarly,\\
+$\Vert x-y \Vert^2$ = $\Vert x \Vert^2 - 2\langle x,y \rangle + \Vert y \Vert^2 $ \textbf{----(2)}\\
+
+\textbf{(1)-(2)} $\Rightarrow \Vert x+y \Vert^2 - \Vert x-y \Vert^2 = 4\langle x,y \rangle $ \\
+
+$\Rightarrow \langle x,y \rangle = 1/4 (\Vert x+y \Vert^2 - \Vert x-y \Vert^2)$
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \section{11. Define T$\colon \mathbb{R}^2 \longrightarrow \mathbb{R}^2$ by T(x,y)=(x,0). Is T a linear operator ?} 
+  
+An linear operator satisties the following conditions,
+$i. f(x+y) = f(x) + f(y), \forall \space  x,y\space \epsilon \space Z, Z\space is\space the\space vector\space space$\\
+$ii. f(\alpha x) = \alpha f(x) , \forall \space \alpha \space \epsilon \space F(field), \space x \space \epsilon \space Z$\\
+Checking the conditions on the operator defined,\\
+$f(x,y) = (x,0) $\\
+$i. f(x_1,y_1) + f(x_2,y_2) = (x_1 , 0) + (x_2, 0)$
+$= (x_1 + x_2, 0) \space = \space f(x_1 + x_2, y_1 + y_2)$\\
+$ii. f(\alpha x, y) = (\alpha x, 0) = \alpha (x, 0) = \alpha f(x,0) = \alpha f(x,y)$\\
+
+Thus T a linear operator . 
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+\section{Show that a discrete metric space is complete.}  
+ 
+\textbf{Solution}\\
+Let (X,d) be the discrete metric space. The standard discrete metric d is defined as d(x,y) = 0 if x=y 
+		   						d(x,y) = 1 otherwise
+
+Unravelling the definition for a Cauchy sequence, we get that :
+
+$ \forall \epsilon > 0 : \exists N : \forall m,n >N : d(a_n,a_m) < \epsilon $\\
+
+and for $\epsilon= 1/2$ and with the given metric definition \textbf{d(m,n) = 0 if m=n and d(m,n) = 1 otherwise}, we note that this must mean $d(a_n,a_m)=0$ (since otherwise it exceeds 1) i.e $a_n = a_m $ for some N and all $ m,n \geq N $.That is, $a_n$ is eventually constant.\\
+
+
+Now there is an obvious guess for the limit of eventually constant sequences, and we conclude that a discrete metric space is always complete.
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  
+\section{Describe Weistrass approximation theorem.}
+
+\textbf{Solution}
+  
+The set W of all polynomials with real coefficients is dense in the real space C[a,b].\\
+Hence for every x $\in$ [a,b] and given $ \in > 0  $ $\exists $ a polynomial p such that $\vert x(t) - p(t)\vert < \in $ for all t $\in$ [a,b]\\
+
+
+\end{homeworkProblem}
+
+\end{document}

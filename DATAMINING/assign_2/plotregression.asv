@@ -1,0 +1,13 @@
+function plotregression(data,theta)
+[X,y]=split(data);
+n=size(X,2);
+X1=X(:,2:n)
+figure
+hold on;
+plot(X,y,'rx','MarkerSize',10)
+X=min(X):.1:max(X);
+f=X*theta;
+plot(X,f);
+title('REGRESSION CURVE');
+hold off;
+end
